@@ -4,16 +4,24 @@
 
 Dictée vocale **locale** pour Windows — push-to-talk avec F6, transcription via Whisper en local, optimisée pour le français québécois (et le franglais qui va avec). Tout reste sur ta machine : zéro cloud, zéro compte, zéro abonnement.
 
+## 🚀 Installation rapide (recommandé)
+
+**Télécharge l'installeur .exe** depuis la page Releases :
+👉 **[github.com/elboKazQC/tania-dictee/releases/latest](https://github.com/elboKazQC/tania-dictee/releases/latest)**
+
+- 63 MB · install no-admin · pas besoin de Python · auto-download du modèle Whisper au 1er launch
+- Au 1er launch : Windows SmartScreen peut afficher "Unknown publisher" → clique "More info" → "Run anyway" (normal pour un binaire non-signé, fix code signing à venir)
+
 ## Ce que c'est
 
 - Tu maintiens **F6**, tu parles, tu relâches → ton texte apparaît dans l'app active (Telegram, Discord, Slack, Gmail, VS Code, peu importe).
 - Moteur : [faster-whisper](https://github.com/SYSTRAN/faster-whisper) (Whisper compilé en C++/CTranslate2) en local, CPU ou GPU CUDA.
 - Aucun appel réseau pendant la dictée. Le modèle Whisper se télécharge une fois au premier lancement.
 
-## Quick start
+## Quick start (pour devs / depuis le source code)
 
 ```bash
-git clone https://github.com/<your-fork>/tania-dictee.git
+git clone https://github.com/elboKazQC/tania-dictee.git
 cd tania-dictee
 python -m venv .venv
 .\.venv\Scripts\activate
