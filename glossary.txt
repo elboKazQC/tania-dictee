@@ -1,0 +1,8 @@
+# Personal glossary — add one term per line
+# Lines starting with # are ignored. These terms get fed to Whisper
+# as hotwords so they don't get mangled in transcription.
+# Examples:
+# Tania Dictée
+# Telegram
+# Discord
+# Slack

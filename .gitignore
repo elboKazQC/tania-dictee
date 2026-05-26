@@ -1,0 +1,14 @@
+.venv/
+.venv-*/
+__pycache__/
+*.pyc
+*.pyo
+runtime/
+finetune-data/
+*.log
+.env
+secrets/
+models/
+*.bak*
+.DS_Store
+Thumbs.db
