@@ -36,30 +36,96 @@ STATE_FILE = RUNTIME_DIR / "last-state.json"
 LAST_TRANSCRIPT_FILE = RUNTIME_DIR / "last-transcript.txt"
 DEFAULT_GLOSSARY_FILE = APP_DIR / "glossary.txt"
 DEFAULT_GLOSSARY_TERMS = [
+    # Communication / chat
     "Tania Dictée",
-    "push-to-talk",
-    "dashboard",
     "Telegram",
     "Discord",
     "Slack",
+    "WhatsApp",
+    "Gmail",
+    "Outlook",
+    "Teams",
+    # Dev tools / IA
+    "VS Code",
+    "Cursor",
+    "Claude Code",
+    "Claude",
+    "ChatGPT",
+    "GitHub",
+    "GitLab",
+    "Whisper",
+    "Stripe",
+    "Notion",
+    "Linear",
+    "Figma",
+    "SharePoint",
+    # Stack tech
+    "Python",
+    "Node.js",
+    "React",
+    "Tailwind",
+    "Docker",
+    "Kubernetes",
+    "SQLite",
+    "PostgreSQL",
+    # Génériques
+    "push-to-talk",
+    "dashboard",
+    "build",
+    "ship",
+    "Québec",
 ]
 SOFT_REPLACEMENTS = [
+    # Branding produit
     (r"\btania dictee\b", "Tania Dictée"),
+    (r"\bpush to talk\b", "push-to-talk"),
+    # Géographie
     (r"\bquebec\b", "Québec"),
+    (r"\bmontreal\b", "Montréal"),
+    # Apps communication
     (r"\btelegramme\b", "Telegram"),
+    (r"\bdiscoeur\b", "Discord"),
+    (r"\bslake\b", "Slack"),
+    (r"\bouatsap\b", "WhatsApp"),
+    (r"\bgi-mail\b", "Gmail"),
+    # Dev tools — Whisper traps communs
+    (r"\bvs codes?\b", "VS Code"),
+    (r"\bcursor\b", "Cursor"),
+    (r"\bclaud(e)?\s+code\b", "Claude Code"),
+    (r"\bchat\s*gpt\b", "ChatGPT"),
+    (r"\bgit\s*ub\b", "GitHub"),
+    (r"\bouisp(er|eur)?\b", "Whisper"),
+    (r"\bstrip(e)?\b", "Stripe"),
+    (r"\bno(t|c)ion\b", "Notion"),
+    (r"\blin(e|i)hi?er\b", "Linear"),
+    (r"\bfigma\b", "Figma"),
+    # Stack
+    (r"\bpaillette\s*on\b", "Python"),
+    (r"\bno\s*jeasse\b", "Node.js"),
+    (r"\bredact\b", "React"),
+    (r"\btail\s*wine?d?\b", "Tailwind"),
+    (r"\bdock\s*heure\b", "Docker"),
+    # Tournures FR fréquentes mal transcrites
     (r"\bje suis impressionné\b", "j'ai l'impression"),
     (r"\bje suis impressionnée\b", "j'ai l'impression"),
     # Normalisation I.A. et ia → IA
     (r"I\.A\.", "IA"),
     (r"\bia\b", "IA"),
+    # Génériques anglicismes FR-QC à conserver
+    (r"\béqui?per\b", "ship"),  # Whisper traduit ship→équiper parfois
 ]
 DEFAULT_INITIAL_PROMPT = (
-    "Transcription fidèle mot à mot. "
-    "Ton naturel québécois ou français, franglais gardé tel quel. "
-    "NE JAMAIS adoucir, reformuler, rendre prudent ou poli le contenu. "
+    "Transcription fidèle mot à mot, français québécois et franglais naturels. "
+    "Ton direct, informel, québécois : 'fa que', 'pis', 'check', 'go', 'ship-le', 'tu run', 'on push'. "
+    "NE JAMAIS adoucir, reformuler ou rendre poli le contenu. "
     "NE JAMAIS transformer une question en affirmation ni inventer du contenu. "
-    "Si un mot est dit en anglais, le garder EN ANGLAIS, ne jamais le traduire "
-    "(ex: 'build' reste 'build' pas 'construire', 'ship' reste 'ship'). "
+    "Si un mot est dit en anglais, le GARDER EN ANGLAIS, ne jamais le traduire en français : "
+    "'build' reste 'build' (pas 'construire'), 'ship' reste 'ship' (pas 'expédier'), "
+    "'run' reste 'run', 'feed' reste 'feed', 'trade' reste 'trade', 'dashboard' reste 'dashboard', "
+    "'commit' reste 'commit', 'push' reste 'push', 'merge' reste 'merge', 'pull' reste 'pull'. "
+    "Terminologie courante à reconnaître : Tania Dictée, Telegram, Discord, Slack, WhatsApp, Gmail, "
+    "Outlook, Teams, VS Code, Cursor, Claude Code, ChatGPT, GitHub, Whisper, Stripe, Notion, Linear, "
+    "Figma, Python, Node.js, React, Tailwind, Docker, IA, push-to-talk, dashboard, Québec, Montréal."
 )
 DEFAULT_HOTKEY = "f6"
 DEFAULT_CLEANUP_MODE = "gentle"
@@ -94,10 +160,14 @@ def auto_detect_compute_type(device: str) -> str:
 
 
 def auto_detect_model(device: str) -> str:
-    """Return best model for the device. GPU = large-v3, CPU = small."""
+    """Return best model for the device.
+    GPU = large-v3 (max quality, 1.5 GB).
+    CPU = medium (sweet spot quality/speed for FR-QC, 770 MB).
+    Override via --model or TANIA_DICTEE_MODEL env var if needed (small / tiny).
+    """
     if device == "cuda":
         return "large-v3"
-    return "small"
+    return "medium"
 
 
 def ensure_runtime_dir():
