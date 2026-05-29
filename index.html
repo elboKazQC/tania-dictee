@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tania Dictée — Dictée vocale franglais-Québec pour Windows</title>
+  <meta name="description" content="Dicte en québécois, en franglais, ou en code. 100% local, Windows-first, sans abonnement de luxe. Beta gratuite." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            accent: '#1d4ed8',
+            'accent-soft': '#2563eb'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-feature-settings: "ss01" on, "cv11" on; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <!-- HEADER -->
+  <header class="border-b border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-baseline gap-2">
+        <span class="text-xl font-bold tracking-tight">Tania Dictée</span>
+        <span class="hidden sm:inline text-sm text-slate-500">— dictée vocale faite au Québec</span>
+      </div>
+      <a href="#beta" class="text-sm font-medium text-accent hover:text-accent-soft">Rejoindre la beta</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-6 pt-16 pb-12 sm:pt-24 sm:pb-16">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
+      Dicte en québécois.<br />
+      <span class="text-accent">Sans Dragon. Sans abonnement à 20$/mois.</span>
+    </h1>
+    <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
+      Une dictée vocale qui comprend ton franglais, tes termes techs pis ton accent. 100% local sur ton PC Windows. Envoie ce que tu dictes direct dans Claude ou ChatGPT.
+    </p>
+    <div class="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
+      <a href="#beta" class="inline-flex justify-center items-center px-7 py-3.5 bg-accent text-white font-semibold rounded-lg hover:bg-accent-soft transition-colors shadow-sm">
+        Rejoindre la beta gratuite
+      </a>
+      <span class="text-sm text-slate-500">Aucune carte de crédit. Beta privée, places limitées.</span>
+    </div>
+  </section>
+
+  <!-- VIDEO PLACEHOLDER -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <div class="aspect-video bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 border border-slate-700 shadow-lg">
+      <div class="text-center">
+        <div class="text-5xl mb-3">▶</div>
+        <div class="text-base font-medium">Démo 60s — bientôt</div>
+        <div class="text-xs mt-1 text-slate-500">Vincent dicte un cas réel en franglais-QC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDGES -->
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-12 text-center">
+      Pourquoi Tania Dictée, pis pas un autre
+    </h2>
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="bg-white p-7 rounded-xl border border-slate-200 hover:border-accent transition-colors">
+        <div class="text-3xl mb-4">🍁</div>
+        <h3 class="text-lg font-semibold mb-2 text-slate-900">Comprend le franglais sans accrocher</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          « J'fais un PR sur le repo pis le build pète » — Tania capte les deux langues phrase par phrase, pas par session. Wispr Flow le fait pas. Nous oui.
+        </p>
+      </div>
+
+      <div class="bg-white p-7 rounded-xl border border-slate-200 hover:border-accent transition-colors">
+        <div class="text-3xl mb-4">🤖</div>
+        <h3 class="text-lg font-semibold mb-2 text-slate-900">Envoi direct dans Claude ou ChatGPT</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Tu parles, ça arrive direct dans ton agent préféré. Plus besoin de Ctrl+C, Ctrl+V, fix les fautes, paste. Une seule étape : parle.
+        </p>
+      </div>
+
+      <div class="bg-white p-7 rounded-xl border border-slate-200 hover:border-accent transition-colors">
+        <div class="text-3xl mb-4">🔒</div>
+        <h3 class="text-lg font-semibold mb-2 text-slate-900">100% local, 100% Windows</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Ta voix sort jamais de ton PC. Aucun cloud, aucune fuite. Et c'est buildé pour Windows, pas un portage Mac à moitié fait.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OPEN SOURCE BANNER -->
+  <section id="opensource" class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 py-16 text-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <div class="inline-block px-3 py-1 bg-green-500/20 text-green-300 text-xs font-semibold rounded-full mb-4 border border-green-500/30">
+        ✨ NOUVEAU — Code source 100% ouvert
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+        Installe-toi tout seul. Gratuit. Sans abonnement.
+      </h2>
+      <p class="text-slate-300 mb-8 text-lg max-w-2xl mx-auto">
+        Le code source de Tania Dictée est sur GitHub. Tu peux le cloner, le modifier, ou attendre l'installeur 1-clic (en cours). Pas de coût, pas de license key, ton micro reste chez toi.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="https://github.com/elboKazQC/tania-dictee" target="_blank" rel="noopener" class="px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors shadow-lg inline-flex items-center justify-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          Voir le code sur GitHub
+        </a>
+        <a href="#beta" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition-colors shadow-lg">
+          Ou rejoins la waitlist installeur
+        </a>
+      </div>
+      <p class="mt-6 text-xs text-slate-400">
+        License MIT · Forks bienvenus · Premium cloud sync à venir
+      </p>
+    </div>
+  </section>
+
+  <!-- EMAIL FORM -->
+  <section id="beta" class="bg-white py-20 border-y border-slate-200">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+        Installeur 1-clic — 50 places beta
+      </h2>
+      <p class="text-slate-600 mb-10 text-lg">
+        Pas le goût de coder ? Laisse ton email. Tu seras avisé en premier quand l'installeur .exe est prêt (~juin 2026). Aucun spam, promis.
+      </p>
+
+      <!-- Formspree endpoint wired 2026-05-25 — Tania Dictee Waitlist form -->
+      <form action="https://formspree.io/f/mdajwdgg" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="ton.email@exemple.com"
+          class="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-slate-900"
+        />
+        <button
+          type="submit"
+          class="px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-soft transition-colors shadow-sm"
+        >
+          M'inscrire
+        </button>
+      </form>
+      <p class="mt-4 text-xs text-slate-500">
+        Tu peux te désabonner en 1 clic. Email géré au Québec.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-3xl mx-auto px-6 py-20">
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-10 text-center">
+      Questions qu'on nous pose
+    </h2>
+    <div class="space-y-6">
+
+      <div class="bg-white p-6 rounded-lg border border-slate-200">
+        <h3 class="font-semibold text-slate-900 mb-2">Combien ça va coûter ?</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Cible : entre 5 et 9$ par mois, ou un paiement unique autour de 49-99$ (lifetime). Les concurrents généralistes sont à 15$/mois — on vise plus accessible parce qu'on est local pis qu'on coupe les frais cloud.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg border border-slate-200">
+        <h3 class="font-semibold text-slate-900 mb-2">C'est quand la beta ?</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Ouverture visée à l'été 2026. Les inscrits sur la waitlist passent en premier, gratuitement, pendant la beta privée.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg border border-slate-200">
+        <h3 class="font-semibold text-slate-900 mb-2">Compatible Mac ou Linux ?</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Pas pour l'instant. On focus Windows parce que c'est là que le trou de marché est le plus large (la plupart des outils similaires sont Mac-first). Mac peut-être en v2, si la demande suit.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+      <div>
+        <span class="font-semibold text-slate-700">Tania Dictée</span> — fait au Québec 🇨🇦
+      </div>
+      <div class="flex gap-6">
+        <a href="mailto:contact@taniadictee.com" class="hover:text-accent">Contact</a>
+        <a href="#" class="hover:text-accent">Politique de vie privée</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
