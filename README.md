@@ -2,138 +2,170 @@
 
 > Dicte en québécois. Sans Dragon. Sans abonnement.
 
-Dictée vocale **locale** pour Windows — push-to-talk avec F6, transcription via Whisper en local, optimisée pour le français québécois (et le franglais qui va avec). Tout reste sur ta machine : zéro cloud, zéro compte, zéro abonnement.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Windows](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)]()
 
-## 🚀 Installation rapide (recommandé)
+Dictée vocale **locale** pour Windows — push-to-talk avec **F6**, transcription via Whisper en local, optimisée pour le français québécois et le franglais technique. Tout reste sur ta machine : zéro cloud, zéro compte, zéro abonnement.
 
-**Télécharge l'installeur .exe** depuis la page Releases :
-👉 **[github.com/elboKazQC/tania-dictee/releases/latest](https://github.com/elboKazQC/tania-dictee/releases/latest)**
+---
 
-- 63 MB · install no-admin · pas besoin de Python · auto-download du modèle Whisper au 1er launch
-- Au 1er launch : Windows SmartScreen peut afficher "Unknown publisher" → clique "More info" → "Run anyway" (normal pour un binaire non-signé, fix code signing à venir)
+<!-- DEMO GIF : ajoute ici ton screen-recording 30s (voir marketing/demo-storyboard.md si disponible) -->
+<!-- Format recommandé : GIF 800×450px ou lien vers ta démo YouTube/mp4 — c'est le money shot qui convertit -->
+
+---
 
 ## Ce que c'est
 
-- Tu maintiens **F6**, tu parles, tu relâches → ton texte apparaît dans l'app active (Telegram, Discord, Slack, Gmail, VS Code, peu importe).
-- Moteur : [faster-whisper](https://github.com/SYSTRAN/faster-whisper) (Whisper compilé en C++/CTranslate2) en local, CPU ou GPU CUDA.
-- Aucun appel réseau pendant la dictée. Le modèle Whisper se télécharge une fois au premier lancement.
+Tu maintiens **F6**, tu parles, tu relâches → ton texte apparaît là où ton curseur est déjà, dans n'importe quelle app (Telegram, Discord, Slack, Gmail, VS Code, Terminal, etc.).
 
-## Quick start (pour devs / depuis le source code)
+- **100 % local** — le moteur [faster-whisper](https://github.com/SYSTRAN/faster-whisper) tourne sur ton GPU ou CPU, aucun appel réseau pendant la dictée
+- **Franglais + code** — le glossaire personnel (`glossary.txt`) garde tes noms propres, termes techniques et mixtes FR/EN intacts
+- **Pas de Dragon, pas d'abonnement** — open source MIT, installe une fois, utilise à vie
+- **Windows-first** — hotkey globale F6 fonctionne dans toutes les apps, même en arrière-plan
 
-```bash
+---
+
+## Installation rapide (recommandé)
+
+**Télécharge l'installeur .exe** depuis la page Releases :
+
+👉 **[github.com/elboKazQC/tania-dictee/releases/latest](https://github.com/elboKazQC/tania-dictee/releases/latest)**
+
+- 63 MB · installation sans droits admin · Python non requis · modèle Whisper téléchargé automatiquement au 1er lancement
+- Au 1er lancement : Windows SmartScreen peut afficher "Unknown publisher" → clique "More info" → "Run anyway" (comportement normal pour un binaire non signé, code signing à venir)
+
+---
+
+## Installation depuis le code source (pour devs)
+
+**Prérequis :** Python 3.10+, Windows 10/11, microphone fonctionnel
+
+```bat
 git clone https://github.com/elboKazQC/tania-dictee.git
 cd tania-dictee
+
+:: Créer l'environnement virtuel
 python -m venv .venv
 .\.venv\Scripts\activate
+
+:: Installer les dépendances
 pip install -r requirements.txt
+
+:: Lancer
 python app.py
 ```
 
-Premier lancement : Whisper télécharge le modèle (~200 MB pour `small`, ~1.5 GB pour `large-v3`). Ensuite c'est instantané.
+**GPU CUDA (optionnel — qualité max, transcription plus rapide) :**
 
-## Hotkeys
+```bat
+:: Dans le même venv activé
+pip install torch --index-url https://download.pytorch.org/whl/cu121
+```
+
+Au premier lancement, Whisper télécharge le modèle une seule fois (~200 MB pour `small` sur CPU, ~1.5 GB pour `large-v3` sur GPU). Ensuite c'est instantané.
+
+---
+
+## Utilisation
 
 | Touche | Action |
 |--------|--------|
-| **F6 (hold)** | Enregistre tant que tu maintiens. Relâche → transcription + paste. |
-| **Esc** | Annule l'enregistrement en cours (clip jeté, pas de paste). |
+| **F6 (maintenir)** | Enregistre tant que tu maintiens. Relâche → transcription + paste. |
+| **Esc** | Annule l'enregistrement en cours — rien n'est collé. |
 | **Ctrl+C** (terminal) | Quitte l'app. |
 
 Personnaliser la hotkey :
+
 ```bash
-python app.py --hotkey ctrl+space
+python app.py --hotkey ctrl+alt+space
 python app.py --hotkey f8
 ```
 
-## Configuration
+---
 
-### Glossaire personnel
+## Glossaire personnel
 
-Édite `glossary.txt` — un terme par ligne. Whisper les utilise comme *hotwords*, donc tes noms propres, jargons, marques arrêtent de se faire mangler en transcription.
+Édite `glossary.txt` — un terme par ligne. Whisper les traite comme des *hotwords* : tes noms propres, jargons techniques et marques arrêtent de se faire défigurer.
 
 ```
-# Mes termes
 Anthropic
 Cursor
 mon-projet-secret
 ```
 
-### Modes de cleanup
+---
+
+## Modes de cleanup
 
 `--cleanup-mode` contrôle le post-traitement de la transcription :
 
-- `raw` — sortie Whisper brute, rien touché.
-- `soft` — corrige les hotwords (Tania Dictée, Québec, IA, etc.) sans toucher au reste.
-- `gentle` *(défaut)* — soft + ponctuation normalisée + majuscule début de phrase + point final.
-- `llm` — pipe via Ollama local (par défaut `mistral`) pour un nettoyage plus intelligent. Nécessite [Ollama](https://ollama.ai) installé et un modèle pull (`ollama pull mistral`).
+| Mode | Comportement |
+|------|-------------|
+| `raw` | Sortie Whisper brute, rien touché |
+| `soft` | Corrige les hotwords seulement |
+| `gentle` *(défaut)* | soft + ponctuation normalisée + majuscule début de phrase |
+| `llm` | Post-traitement via Ollama local (requiert [Ollama](https://ollama.ai) + `ollama pull mistral`) |
 
-### Modèle Whisper
-
-Auto-détecté selon ton hardware :
-- **CPU** → `small` (~200 MB, ~2-4s pour 10s d'audio)
-- **GPU CUDA** → `large-v3` (~1.5 GB, qualité max, plus rapide en GPU qu'un CPU avec small)
-
-Override :
-```bash
-python app.py --model medium     # compromis qualité/vitesse
-python app.py --model large-v3   # qualité max
-python app.py --model tiny       # latence min, qualité faible
-```
-
-### Toutes les options
-
-```bash
-python app.py --help
-```
+---
 
 ## Troubleshooting
 
-**1. "No audio captured" / micro pas détecté**
-Vérifie ton micro par défaut dans Paramètres Windows > Son > Entrée. L'app utilise celui-là. Test rapide :
-```bash
-python -c "import sounddevice as sd; print(sd.query_devices())"
-```
-
-**2. F6 ne déclenche rien**
-Une autre app a probablement capté la touche en premier (logiciel de gaming, OBS, Teams). Change la hotkey :
+**F6 ne déclenche rien** — une autre app a probablement capté la touche (logiciel gaming, OBS, Teams). Change la hotkey :
 ```bash
 python app.py --hotkey ctrl+alt+space
 ```
 
-**3. Antivirus flagge le module `keyboard`**
-Faux positif connu — le module Python `keyboard` installe un hook bas niveau, ce que les AV interprètent parfois comme un keylogger. C'est open source, lis le code si tu veux ([source](https://github.com/boppreh/keyboard)). Whitelist le dossier `.venv` ou installe Tania Dictée hors d'un dossier protégé.
+**Micro pas détecté** — vérifie le micro par défaut dans Paramètres Windows > Son > Entrée :
+```bash
+python -c "import sounddevice as sd; print(sd.query_devices())"
+```
 
-**4. CUDA détecté mais erreur au démarrage**
-Tu n'as pas `torch` avec support CUDA. Soit installe-le (`pip install torch --index-url https://download.pytorch.org/whl/cu121`), soit force le CPU :
+**Antivirus flagge le module `keyboard`** — faux positif connu. Le module installe un hook clavier bas niveau, ce que certains AV interprètent comme un keylogger. C'est open source ([code source](https://github.com/boppreh/keyboard)). Whitelist le dossier `.venv`.
+
+**CUDA détecté mais erreur au démarrage** — installe torch avec support CUDA ou force le CPU :
 ```bash
 python app.py --device cpu
 ```
 
-**5. Transcription lente / lag**
-Modèle trop gros pour ton CPU. Passe à `small` ou `tiny` :
+**Transcription lente** — modèle trop gros pour ton CPU. Passe à `small` ou `tiny` :
 ```bash
 python app.py --model tiny
 ```
 
-## Architecture (1 fichier)
+---
 
-`app.py` contient tout :
-- `Recorder` — capture audio sounddevice → wav 16kHz mono
+## Architecture
+
+`app.py` contient tout (~1000 lignes, zéro dépendance exotique) :
+
+- `Recorder` — capture audio sounddevice → wav 16 kHz mono
 - `Transcriber` — faster-whisper avec VAD filter + initial prompt
 - `Paster` — clipboard swap + Ctrl+V (ou typing fallback)
 - `FeedbackOverlay` — toast tkinter qui pulse pendant l'enregistrement
 - `TaniaDicteeApp` — state machine push-to-talk
 
-~1000 lignes, zéro dépendance exotique, lisible d'un coup.
+---
 
-## License
+## Version packagée / .exe à venir
 
-MIT — fais ce que tu veux. Fork, modifie, ship un produit dessus, on s'en fout.
+Tu veux un installeur .exe clé en main, pas de Python, auto-update ? Inscris-toi à la waitlist :
 
-## Contributing
+👉 **[elbokazqc.github.io/tania-dictee](https://elbokazqc.github.io/tania-dictee)**
 
-PRs welcome. Idées de features qui manquent :
-- Support macOS / Linux (actuellement Windows-only à cause de `winsound`, `ctypes.windll`, et `keyboard` qui requires admin sur Linux)
+---
+
+## Contribuer
+
+PRs bienvenues. Ce qui manque et qui serait utile :
+
+- Support macOS / Linux (actuellement Windows-only : `winsound`, `ctypes.windll`, `keyboard` qui requiert admin sur Linux)
 - Voice activity detection auto (parle = enregistre, silence = stop)
-- Multi-locuteurs (diarization)
-- Hotkey en background même si une autre app a le focus exclusif
+- Diarization multi-locuteurs
+- Hotkey globale même si une app a le focus exclusif (ex: jeux fullscreen)
+
+---
+
+## Licence
+
+MIT — fais ce que tu veux. Fork, modifie, ship un produit dessus.
