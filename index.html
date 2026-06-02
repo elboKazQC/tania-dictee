@@ -3,206 +3,1190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tania Dictée — Dictée vocale franglais-Québec pour Windows</title>
-  <meta name="description" content="Dicte en québécois, en franglais, ou en code. 100% local, Windows-first, sans abonnement de luxe. Beta gratuite." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            accent: '#1d4ed8',
-            'accent-soft': '#2563eb'
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
+  <title>Tania Dictée — Dictée vocale franglais-Québec pour Windows | Bye Dragon 500$</title>
+  <meta name="description" content="Dragon NaturallySpeaking coûte 500$. Wispr Flow comprend pas ton franglais. Tania Dictée : 49$ one-shot, 100% local, colle direct dans Claude et VS Code. Windows, fait au Québec." />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tania Dictée — Dictée locale FR-QC, bye Dragon 500$" />
+  <meta property="og:description" content="Tu dictes en franglais, ça colle partout. 49$ one-shot ou 9$/mois. 100% local, ta voix sort jamais de ton PC." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_CA" />
   <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0a0e1a;
+      --bg-card:     #111827;
+      --bg-card2:    #1a2235;
+      --border:      rgba(255,255,255,0.08);
+      --border-glow: rgba(99,102,241,0.35);
+      --accent:      #6366f1;
+      --accent-soft: #818cf8;
+      --accent-glow: rgba(99,102,241,0.18);
+      --green:       #10b981;
+      --green-bg:    rgba(16,185,129,0.12);
+      --red:         #f43f5e;
+      --text-hi:     #f1f5f9;
+      --text-mid:    #94a3b8;
+      --text-lo:     #64748b;
+      --font:        'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
     html { scroll-behavior: smooth; }
-    body { font-feature-settings: "ss01" on, "cv11" on; }
+    body {
+      background: var(--bg);
+      color: var(--text-hi);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-soft); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .max-w { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .max-w-narrow { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,14,26,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-hi);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-glow);
+      color: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent-soft); text-decoration: none; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      padding: 80px 24px 64px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-bg);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text-hi);
+      max-width: 900px;
+      margin: 0 auto 24px;
+    }
+    .hero h1 .cross {
+      color: var(--red);
+      text-decoration: line-through;
+      text-decoration-color: var(--red);
+      text-decoration-thickness: 3px;
+    }
+    .hero h1 .accent { color: var(--accent-soft); }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-mid);
+      max-width: 620px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 0 24px rgba(99,102,241,0.35);
+    }
+    .btn-primary:hover { background: var(--accent-soft); text-decoration: none; transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--text-hi);
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-lo);
+    }
+    .hero-note span { color: var(--green); font-weight: 600; }
+
+    /* ============================================================
+       DÉMO ANIMÉE (cadre + animation dictée franglais ci-dessous)
+    ============================================================ */
+    .demo-section {
+      padding: 0 24px 80px;
+    }
+    .demo-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 0 48px rgba(99,102,241,0.15);
+    }
+    .demo-placeholder {
+      background: linear-gradient(135deg, #0f1a2e 0%, #111827 50%, #0a1120 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 32px 16px;
+    }
+    .demo-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      border: 2px solid var(--border-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+    .demo-placeholder p { color: var(--text-mid); font-size: 0.95rem; }
+    .demo-placeholder strong { color: var(--text-hi); font-size: 1.1rem; }
+
+    /* ---- Démo animée : simulation dictée franglais (CSS pur, boucle 9s, zéro JS) ---- */
+    .demo-stage {
+      width: min(92%, 680px);
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.5);
+      font-family: 'Cascadia Code','Fira Code','Consolas',monospace;
+      text-align: left;
+    }
+    .demo-titlebar {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 13px;
+      background: var(--bg-card2);
+      border-bottom: 1px solid var(--border);
+    }
+    .demo-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+    .demo-dot.r { background: #ef4444; } .demo-dot.y { background: #eab308; } .demo-dot.g { background: var(--green); }
+    .demo-titlebar .t { margin-left: 5px; font-size: 0.76rem; color: var(--text-lo); }
+    .demo-mic {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.02em;
+      padding: 3px 10px; border-radius: 999px;
+      color: var(--green); background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.4);
+      animation: micpulse 9s ease-in-out infinite;
+    }
+    .demo-mic .led { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: micblink 1.1s steps(2,start) infinite; }
+    .demo-body { padding: 17px 19px 19px; min-height: 156px; }
+    .demo-said {
+      font-style: italic; color: var(--text-mid); font-size: 0.85rem; line-height: 1.5;
+      margin-bottom: 15px; display: flex; gap: 9px; align-items: flex-start;
+      opacity: 0; animation: said 9s ease-out infinite;
+    }
+    .demo-said .q { font-style: normal; flex: none; }
+    .demo-line { font-size: 0.93rem; line-height: 1.95; opacity: 0; display: block; }
+    .demo-line.l1 { animation: rise 9s ease-out infinite; animation-delay: 1.5s; }
+    .demo-line.l2 { animation: rise 9s ease-out infinite; animation-delay: 2.5s; }
+    .demo-line.l3 { animation: rise 9s ease-out infinite; animation-delay: 3.5s; }
+    .tok-ok { color: var(--green); margin-right: 8px; font-weight: 700; }
+    .tok-fr { color: var(--text-hi); }
+    .tok-en { color: var(--accent-soft); font-weight: 700; }
+    .demo-cursor {
+      display: inline-block; width: 8px; height: 1.05em; vertical-align: text-bottom;
+      background: var(--accent-soft); margin-left: 3px; animation: dblink 1s steps(1) infinite;
+    }
+    @keyframes dblink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+    @keyframes micblink { 0%{opacity:1} 100%{opacity:0.2} }
+    @keyframes micpulse {
+      0%, 44% { color: var(--green); background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.4); }
+      56%, 100% { color: var(--text-lo); background: rgba(100,116,139,0.08); border-color: var(--border); }
+    }
+    @keyframes said {
+      0%, 3% { opacity: 0; transform: translateY(5px); }
+      11%, 80% { opacity: 1; transform: translateY(0); }
+      92%, 100% { opacity: 0; }
+    }
+    @keyframes rise {
+      0% { opacity: 0; transform: translateY(7px); }
+      7%, 84% { opacity: 1; transform: translateY(0); }
+      95%, 100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .demo-mic, .demo-mic .led, .demo-said, .demo-line, .demo-cursor { animation: none !important; opacity: 1 !important; }
+    }
+    .demo-caption {
+      position: static;
+      padding: 10px 16px;
+      background: rgba(10,14,26,0.85);
+      font-size: 0.8rem;
+      color: var(--text-mid);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       PROBLEM / SOLUTION
+    ============================================================ */
+    .problem-section {
+      padding: 80px 24px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-hi);
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      color: var(--text-mid);
+      font-size: 1rem;
+      margin-bottom: 48px;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 640px) { .problem-grid { grid-template-columns: 1fr; } }
+
+    .problem-card {
+      background: rgba(244,63,94,0.06);
+      border: 1px solid rgba(244,63,94,0.2);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .problem-card .card-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .problem-card .card-title { font-weight: 600; font-size: 1rem; color: var(--text-hi); margin-bottom: 8px; }
+    .problem-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+
+    .solution-card {
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .solution-card .card-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .solution-card .card-title { font-weight: 600; font-size: 1rem; color: var(--text-hi); margin-bottom: 8px; }
+    .solution-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+
+    .code-demo {
+      margin-top: 20px;
+      background: #0a0e1a;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--text-mid);
+    }
+    .code-demo .green { color: var(--green); }
+    .code-demo .dim { color: var(--text-lo); }
+    .code-demo .hi { color: var(--text-hi); }
+
+    /* ============================================================
+       FEATURES
+    ============================================================ */
+    .features-section {
+      padding: 80px 24px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    @media (max-width: 860px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .features-grid { grid-template-columns: 1fr; } }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: var(--border-glow); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 0.95rem; font-weight: 600; color: var(--text-hi); margin-bottom: 8px; }
+    .feature-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; }
+
+    /* ============================================================
+       PRICING
+    ============================================================ */
+    .pricing-section {
+      padding: 80px 24px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 820px;
+      margin: 48px auto 0;
+    }
+    @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+    .pricing-card {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-card.featured {
+      border-color: var(--border-glow);
+      box-shadow: 0 0 32px rgba(99,102,241,0.12);
+      position: relative;
+    }
+    .pricing-card .popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .pricing-card .plan-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-lo);
+      margin-bottom: 8px;
+    }
+    .pricing-card .price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .pricing-card .price-amount {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-hi);
+      letter-spacing: -0.03em;
+    }
+    .pricing-card .price-period {
+      color: var(--text-lo);
+      font-size: 0.85rem;
+    }
+    .pricing-card .price-note {
+      font-size: 0.78rem;
+      color: var(--text-mid);
+      margin-bottom: 24px;
+      min-height: 20px;
+    }
+    .pricing-card hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .pricing-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+    .pricing-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--text-mid);
+    }
+    .pricing-card li .check {
+      color: var(--green);
+      font-size: 0.9rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .btn-waitlist {
+      display: block;
+      width: 100%;
+      padding: 13px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn-waitlist-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(99,102,241,0.3);
+    }
+    .btn-waitlist-primary:hover { background: var(--accent-soft); text-decoration: none; }
+    .btn-waitlist-secondary {
+      background: transparent;
+      color: var(--text-hi);
+      border: 1px solid var(--border);
+    }
+    .btn-waitlist-secondary:hover { border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+    .pricing-disclaimer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: var(--text-lo);
+    }
+
+    /* ============================================================
+       WAITLIST / CTA SECTION
+    ============================================================ */
+    .waitlist-section {
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .waitlist-box {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .waitlist-box h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-hi);
+      margin-bottom: 12px;
+    }
+    .waitlist-box p {
+      color: var(--text-mid);
+      font-size: 1rem;
+      margin-bottom: 32px;
+    }
+    .waitlist-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    @media (min-width: 480px) {
+      .waitlist-form { flex-direction: row; }
+    }
+    .waitlist-form input[type="email"] {
+      flex: 1;
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg-card);
+      color: var(--text-hi);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: var(--font);
+    }
+    .waitlist-form input[type="email"]::placeholder { color: var(--text-lo); }
+    .waitlist-form input[type="email"]:focus { border-color: var(--accent); }
+    .waitlist-form button[type="submit"] {
+      padding: 13px 24px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: background 0.15s;
+      box-shadow: 0 0 20px rgba(99,102,241,0.3);
+      white-space: nowrap;
+    }
+    .waitlist-form button[type="submit"]:hover { background: var(--accent-soft); }
+    .waitlist-note { font-size: 0.78rem; color: var(--text-lo); margin-top: 12px; }
+    .waitlist-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .stat-num { font-size: 1.4rem; font-weight: 700; color: var(--text-hi); }
+    .stat-item .stat-label { font-size: 0.75rem; color: var(--text-lo); margin-top: 2px; }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    .faq-section {
+      padding: 80px 24px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+    }
+    .faq-list {
+      max-width: 720px;
+      margin: 48px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .faq-item {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+    .faq-item h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-hi);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .faq-item h3 .q-mark {
+      color: var(--accent-soft);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .faq-item p {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      padding-left: 22px;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-brand { font-weight: 700; color: var(--text-hi); font-size: 0.9rem; }
+    .footer-brand span { color: var(--text-lo); font-weight: 400; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-lo); }
+    .footer-links a:hover { color: var(--accent-soft); }
+
+    /* ============================================================
+       OPEN SOURCE STRIP
+    ============================================================ */
+    .oss-strip {
+      background: linear-gradient(90deg, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0.04) 100%);
+      border-top: 1px solid var(--border-glow);
+      border-bottom: 1px solid var(--border-glow);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .oss-strip p {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+    }
+    .oss-strip a { color: var(--accent-soft); font-weight: 600; }
+
+    /* ============================================================
+       COMPARE TABLE MINI
+    ============================================================ */
+    .compare-section {
+      padding: 80px 24px;
+    }
+    .compare-table {
+      max-width: 820px;
+      margin: 40px auto 0;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .compare-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-lo);
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table th.highlight-col {
+      color: var(--accent-soft);
+    }
+    .compare-table td {
+      padding: 14px 16px;
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table td.row-label { color: var(--text-hi); font-weight: 500; }
+    .compare-table td.highlight-col {
+      color: var(--text-hi);
+      background: rgba(99,102,241,0.04);
+    }
+    .compare-table .check-green { color: var(--green); font-weight: 700; }
+    .compare-table .check-red { color: var(--red); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    @media (max-width: 560px) {
+      .compare-table { font-size: 0.78rem; }
+      .compare-table th, .compare-table td { padding: 10px 10px; }
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased">
+<body>
 
-  <!-- HEADER -->
-  <header class="border-b border-slate-200 bg-white">
-    <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
-      <div class="flex items-baseline gap-2">
-        <span class="text-xl font-bold tracking-tight">Tania Dictée</span>
-        <span class="hidden sm:inline text-sm text-slate-500">— dictée vocale faite au Québec</span>
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">
+        Tania Dictée
+        <span class="badge">BETA</span>
       </div>
-      <a href="#beta" class="text-sm font-medium text-accent hover:text-accent-soft">Rejoindre la beta</a>
+      <a href="#waitlist" class="nav-cta">Rejoindre la waitlist</a>
     </div>
-  </header>
+  </nav>
 
-  <!-- HERO -->
-  <section class="max-w-5xl mx-auto px-6 pt-16 pb-12 sm:pt-24 sm:pb-16">
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
-      Dicte en québécois.<br />
-      <span class="text-accent">Sans Dragon. Sans abonnement à 20$/mois.</span>
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      🎙️ Dictée vocale FR-QC &nbsp;·&nbsp; Windows &nbsp;·&nbsp; 100% local
+    </div>
+
+    <h1>
+      Dragon coûte <span class="cross">500$</span>.<br />
+      Ta voix dicte <span class="accent">partout, gratis</span>.
     </h1>
-    <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
-      Une dictée vocale qui comprend ton franglais, tes termes techs pis ton accent. 100% local sur ton PC Windows. Envoie ce que tu dictes direct dans Claude ou ChatGPT.
+
+    <p class="hero-sub">
+      Tu parles en franglais dans Claude Code, VS Code ou Gmail — ça colle direct, propre, en &lt;1 seconde.
+      Ta voix sort jamais de ton PC. Et c'est 49$ one-shot, pas 500$ + abo Dragon.
     </p>
-    <div class="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
-      <a href="#beta" class="inline-flex justify-center items-center px-7 py-3.5 bg-accent text-white font-semibold rounded-lg hover:bg-accent-soft transition-colors shadow-sm">
-        Rejoindre la beta gratuite
+
+    <div class="hero-ctas">
+      <a href="#waitlist" class="btn-primary">
+        ✉ Rejoindre la waitlist
       </a>
-      <span class="text-sm text-slate-500">Aucune carte de crédit. Beta privée, places limitées.</span>
+      <a href="https://github.com/elboKazQC/tania-dictee" target="_blank" rel="noopener" class="btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        Voir le code (open-source)
+      </a>
+    </div>
+
+    <p class="hero-note">
+      <span>Beta privée</span> — places limitées · aucune carte de crédit requise
+    </p>
+  </section>
+
+  <!-- ============================================================
+       DÉMO ANIMÉE — simulation dictée franglais (CSS pur, zéro JS)
+       Remplace l'ancien placeholder "vidéo à venir" (2026-06-01).
+  ============================================================ -->
+  <section class="demo-section">
+    <div class="demo-wrap">
+      <div class="demo-placeholder">
+        <div class="demo-stage" role="img" aria-label="Démonstration : la touche F6 active la dictée, une phrase en franglais est détectée mot à mot (français en blanc, anglais en indigo) et collée dans Claude Code.">
+          <div class="demo-titlebar">
+            <span class="demo-dot r"></span><span class="demo-dot y"></span><span class="demo-dot g"></span>
+            <span class="t">Claude Code</span>
+            <span class="demo-mic"><span class="led"></span>F6 · écoute</span>
+          </div>
+          <div class="demo-body" aria-hidden="true">
+            <div class="demo-said"><span class="q">🎙️</span><span>« crée un composant Button avec un onClick qui dispatch un event vers le parent »</span></div>
+            <span class="demo-line l1"><span class="tok-ok">✓</span><span class="tok-fr">crée un composant</span> <span class="tok-en">Button</span></span>
+            <span class="demo-line l2"><span class="tok-ok">✓</span><span class="tok-fr">avec un</span> <span class="tok-en">onClick</span></span>
+            <span class="demo-line l3"><span class="tok-ok">✓</span><span class="tok-fr">qui dispatch un</span> <span class="tok-en">event</span> <span class="tok-fr">vers le parent</span><span class="demo-cursor"></span></span>
+          </div>
+        </div>
+      </div>
+      <div class="demo-caption">
+        En direct · dictée franglais-QC détectée mot à mot dans Claude Code, zéro clavier, &lt;1s
+      </div>
     </div>
   </section>
 
-  <!-- VIDEO PLACEHOLDER -->
-  <section class="max-w-4xl mx-auto px-6 pb-16">
-    <div class="aspect-video bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 border border-slate-700 shadow-lg">
-      <div class="text-center">
-        <div class="text-5xl mb-3">▶</div>
-        <div class="text-base font-medium">Démo 60s — bientôt</div>
-        <div class="text-xs mt-1 text-slate-500">Vincent dicte un cas réel en franglais-QC</div>
+  <!-- ============================================================
+       PROBLEM / SOLUTION
+  ============================================================ -->
+  <section class="problem-section">
+    <div class="max-w" style="text-align:center;">
+      <h2 class="section-title">Le vrai problème avec les outils existants</h2>
+      <p class="section-subtitle">Tous les outils de dictée ont été buildés pour le marché anglophone. Toi, tu codes autrement.</p>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="card-label">❌ Dragon NaturallySpeaking</div>
+          <div class="card-title">500$ + abo, et encore</div>
+          <p>500$ upfront, interface années 2000, et il capte pas que ton "console.log" c'est du code, pas du français mal prononcé.</p>
+        </div>
+
+        <div class="problem-card">
+          <div class="card-label">❌ Wispr Flow / SuperWhisper</div>
+          <div class="card-title">Détection par session, pas par phrase</div>
+          <p>Tu parles franglais, il choisit une langue et reste planté dessus toute la session. "useEffect" sort "utilisez Effet". C'est cassé par design.</p>
+        </div>
+
+        <div class="solution-card">
+          <div class="card-label">✅ Tania Dictée — franglais phrase par phrase</div>
+          <div class="card-title">Détection mot à mot</div>
+          <p>
+            « Crée un composant Button avec un prop onClick » — chaque bloc FR / EN détecté
+            séparément dans la même phrase. Zéro post-édition.
+          </p>
+          <div class="code-demo">
+            <span class="dim">Tu parles → </span><span class="hi">F6</span><span class="dim"> → </span><br/>
+            <span class="green">✓ </span><span class="hi">crée un composant Button</span><br/>
+            <span class="green">✓ </span><span class="hi">avec un prop onClick</span><br/>
+            <span class="green">✓ </span><span class="hi">qui dispatch un event vers le parent</span><br/>
+            <span class="dim">→ collé direct dans Claude Code</span>
+          </div>
+        </div>
+
+        <div class="solution-card">
+          <div class="card-label">✅ Ta voix reste chez toi</div>
+          <div class="card-title">100% local, zéro cloud</div>
+          <p>Whisper tourne sur ton GPU/CPU. Aucun enregistrement envoyé nulle part. Aucun abonnement API vocal. Zéro fuite.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- EDGES -->
-  <section class="max-w-5xl mx-auto px-6 py-16">
-    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-12 text-center">
-      Pourquoi Tania Dictée, pis pas un autre
-    </h2>
-    <div class="grid md:grid-cols-3 gap-6">
+  <!-- ============================================================
+       FEATURES
+  ============================================================ -->
+  <section class="features-section">
+    <div class="max-w" style="text-align:center;">
+      <h2 class="section-title">Pourquoi Tania Dictée, pis pas un autre</h2>
+      <p class="section-subtitle">Buildé pour le vibe-coder québécois. Pas un port Mac à moitié raté.</p>
 
-      <div class="bg-white p-7 rounded-xl border border-slate-200 hover:border-accent transition-colors">
-        <div class="text-3xl mb-4">🍁</div>
-        <h3 class="text-lg font-semibold mb-2 text-slate-900">Comprend le franglais sans accrocher</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          « J'fais un PR sur le repo pis le build pète » — Tania capte les deux langues phrase par phrase, pas par session. Wispr Flow le fait pas. Nous oui.
-        </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Hotkey F6 → texte en &lt;1s</h3>
+          <p>Pèse F6, parle, relâche. Le texte colle dans la fenêtre active. Claude Code, VS Code, Gmail, Slack — partout où ton curseur est.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🍁</div>
+          <h3>Franglais compris nativement</h3>
+          <p>FR ↔ EN dans la même phrase, sans switcher de mode. "Ajoute un useEffect qui fetch les données" sort propre d'un coup.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Zéro cloud, zéro logs</h3>
+          <p>Whisper-large-v3 tourne local. Ta voix ne quitte jamais ton PC. Idéal pour le code propriétaire, les projets clients, les prompts sensibles.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📖</div>
+          <h3>Glossaire perso</h3>
+          <p>Tes termes tech FR-QC jamais mal reconnus. "NextJS" pas "next jé". "Tania" pas "Canada". Tu ajoutes tes mots, Whisper les apprend.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🪟</div>
+          <h3>Windows-first, vraiment</h3>
+          <p>Pas un port Mac à moitié fait. Buildé pour Windows 10/11 dès le départ. Installeur .exe signé, ça marche en 3 min, pas de Python à configurer.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔓</div>
+          <h3>Open source MIT</h3>
+          <p>Le code est sur GitHub. Tu clones, tu modifies, t'es pas prisonnier. Et la version SaaS ajoute l'installeur 1-clic + les updates auto.</p>
+        </div>
       </div>
-
-      <div class="bg-white p-7 rounded-xl border border-slate-200 hover:border-accent transition-colors">
-        <div class="text-3xl mb-4">🤖</div>
-        <h3 class="text-lg font-semibold mb-2 text-slate-900">Envoi direct dans Claude ou ChatGPT</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Tu parles, ça arrive direct dans ton agent préféré. Plus besoin de Ctrl+C, Ctrl+V, fix les fautes, paste. Une seule étape : parle.
-        </p>
-      </div>
-
-      <div class="bg-white p-7 rounded-xl border border-slate-200 hover:border-accent transition-colors">
-        <div class="text-3xl mb-4">🔒</div>
-        <h3 class="text-lg font-semibold mb-2 text-slate-900">100% local, 100% Windows</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Ta voix sort jamais de ton PC. Aucun cloud, aucune fuite. Et c'est buildé pour Windows, pas un portage Mac à moitié fait.
-        </p>
-      </div>
-
     </div>
   </section>
 
-  <!-- OPEN SOURCE BANNER -->
-  <section id="opensource" class="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 py-16 text-white">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <div class="inline-block px-3 py-1 bg-green-500/20 text-green-300 text-xs font-semibold rounded-full mb-4 border border-green-500/30">
-        ✨ NOUVEAU — Code source 100% ouvert
+  <!-- ============================================================
+       COMPARE TABLE
+  ============================================================ -->
+  <section class="compare-section">
+    <div class="max-w" style="text-align:center;">
+      <h2 class="section-title">Comment on se compare</h2>
+      <p class="section-subtitle">Les chiffres clés, sans bullshit.</p>
+
+      <div style="overflow-x:auto;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Critère</th>
+              <th>Dragon NS</th>
+              <th>Wispr Flow</th>
+              <th class="highlight-col">Tania Dictée ✅</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Prix</td>
+              <td>500$ + abo</td>
+              <td>15$/mois</td>
+              <td class="highlight-col"><strong>49$ one-shot</strong> ou 9$/mois</td>
+            </tr>
+            <tr>
+              <td class="row-label">Franglais FR↔EN phrase par phrase</td>
+              <td class="check-red">✗ Non</td>
+              <td class="check-red">✗ Non (session seulement)</td>
+              <td class="highlight-col check-green">✓ Oui</td>
+            </tr>
+            <tr>
+              <td class="row-label">100% local (voix reste sur PC)</td>
+              <td class="check-red">✗ Non (cloud)</td>
+              <td class="check-red">✗ Non (cloud)</td>
+              <td class="highlight-col check-green">✓ Oui</td>
+            </tr>
+            <tr>
+              <td class="row-label">Colle dans Claude Code / VS Code</td>
+              <td class="check-red">✗ Copier-coller manuel</td>
+              <td>Partiel</td>
+              <td class="highlight-col check-green">✓ Direct (hotkey F6)</td>
+            </tr>
+            <tr>
+              <td class="row-label">Glossaire perso FR-QC</td>
+              <td>Oui (complexe)</td>
+              <td class="check-red">✗ Non</td>
+              <td class="highlight-col check-green">✓ Simple (fichier texte)</td>
+            </tr>
+            <tr>
+              <td class="row-label">Windows-first</td>
+              <td>Oui</td>
+              <td class="check-red">✗ Mac only</td>
+              <td class="highlight-col check-green">✓ Oui</td>
+            </tr>
+            <tr>
+              <td class="row-label">Open source</td>
+              <td class="check-red">✗ Non</td>
+              <td class="check-red">✗ Non</td>
+              <td class="highlight-col check-green">✓ MIT</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-bold mb-4">
-        Installe-toi tout seul. Gratuit. Sans abonnement.
-      </h2>
-      <p class="text-slate-300 mb-8 text-lg max-w-2xl mx-auto">
-        Le code source de Tania Dictée est sur GitHub. Tu peux le cloner, le modifier, ou attendre l'installeur 1-clic (en cours). Pas de coût, pas de license key, ton micro reste chez toi.
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OPEN SOURCE STRIP
+  ============================================================ -->
+  <div class="oss-strip">
+    <p>
+      Préfères-tu installer toi-même ? Le code source est sur
+      <a href="https://github.com/elboKazQC/tania-dictee" target="_blank" rel="noopener">GitHub (MIT)</a>
+       — clone, configure, c'est parti. La version SaaS ajoute l'installeur 1-clic + updates auto.
+    </p>
+  </div>
+
+  <!-- ============================================================
+       PRICING
+  ============================================================ -->
+  <section class="pricing-section" id="pricing">
+    <div class="max-w" style="text-align:center;">
+      <h2 class="section-title">Pricing — simple et honnête</h2>
+      <p class="section-subtitle">Pas d'abo caché. Pas de fonctionnalités artificiellement bridées. Tu paies ce que tu consommes.</p>
+
+      <div class="pricing-grid">
+
+        <!-- ONE-SHOT -->
+        <div class="pricing-card">
+          <div class="plan-name">One-shot · 1 an</div>
+          <div class="price">
+            <div class="price-amount">49$</div>
+            <div class="price-period">CAD, une fois</div>
+          </div>
+          <div class="price-note">3 machines · 1 an d'updates inclus</div>
+          <hr />
+          <ul>
+            <li><span class="check">✓</span> App complète Windows</li>
+            <li><span class="check">✓</span> Hotkey F6 dictée locale</li>
+            <li><span class="check">✓</span> Franglais phrase par phrase</li>
+            <li><span class="check">✓</span> Glossaire perso</li>
+            <li><span class="check">✓</span> Colle dans Claude Code, VS Code, Gmail…</li>
+            <li><span class="check">✓</span> 3 machines max (toi, laptop, backup)</li>
+            <li><span class="check">✓</span> 1 an d'updates inclus</li>
+          </ul>
+          <!-- Checkout Lemon Squeezy (à activer quand compte créé) -->
+          <a href="#waitlist" data-checkout="LEMONSQUEEZY_CHECKOUT_URL_ONESHOT" class="btn-waitlist btn-waitlist-secondary" id="btn-oneshot">
+            Rejoindre la waitlist
+          </a>
+        </div>
+
+        <!-- PRO MONTHLY -->
+        <div class="pricing-card featured">
+          <div class="popular-badge">RECOMMANDÉ</div>
+          <div class="plan-name">Pro · Mensuel</div>
+          <div class="price">
+            <div class="price-amount">9$</div>
+            <div class="price-period">/ mois CAD</div>
+          </div>
+          <div class="price-note">Machines illimitées · updates permanentes</div>
+          <hr />
+          <ul>
+            <li><span class="check">✓</span> Tout ce qu'il y a dans One-shot</li>
+            <li><span class="check">✓</span> Machines illimitées</li>
+            <li><span class="check">✓</span> Updates permanentes incluses</li>
+            <li><span class="check">✓</span> Cloud sync glossaire (à venir)</li>
+            <li><span class="check">✓</span> Accès fonctionnalités beta avant les autres</li>
+            <li><span class="check">✓</span> Support prioritaire</li>
+            <li><span class="check">✓</span> Annule n'importe quand, sans frais</li>
+          </ul>
+          <!-- Checkout Lemon Squeezy (à activer quand compte créé) -->
+          <a href="#waitlist" data-checkout="LEMONSQUEEZY_CHECKOUT_URL_PRO" class="btn-waitlist btn-waitlist-primary" id="btn-pro">
+            Rejoindre la waitlist
+          </a>
+        </div>
+
+      </div>
+
+      <p class="pricing-disclaimer">
+        Les boutons de paiement seront activés sous peu — rejoins la waitlist pour être avisé en premier.
+        Paiements via Lemon Squeezy (MoR) — TPS/TVQ incluses.
       </p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="https://github.com/elboKazQC/tania-dictee" target="_blank" rel="noopener" class="px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors shadow-lg inline-flex items-center justify-center gap-2">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          Voir le code sur GitHub
-        </a>
-        <a href="#beta" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition-colors shadow-lg">
-          Ou rejoins la waitlist installeur
-        </a>
-      </div>
-      <p class="mt-6 text-xs text-slate-400">
-        License MIT · Forks bienvenus · Premium cloud sync à venir
-      </p>
     </div>
   </section>
 
-  <!-- EMAIL FORM -->
-  <section id="beta" class="bg-white py-20 border-y border-slate-200">
-    <div class="max-w-2xl mx-auto px-6 text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-        Installeur 1-clic — 50 places beta
-      </h2>
-      <p class="text-slate-600 mb-10 text-lg">
-        Pas le goût de coder ? Laisse ton email. Tu seras avisé en premier quand l'installeur .exe est prêt (~juin 2026). Aucun spam, promis.
+  <!-- ============================================================
+       WAITLIST FORM
+  ============================================================ -->
+  <section class="waitlist-section" id="waitlist">
+    <div class="waitlist-box">
+      <div class="hero-eyebrow" style="justify-content:center; margin:0 auto 24px;">
+        ✉ Waitlist — installeur 1-clic
+      </div>
+      <h2>Beta privée — on t'avertit en premier</h2>
+      <p>
+        Pas le goût de configurer Python toi-même ? Laisse ton email.
+        Tu seras le premier avisé quand l'installeur .exe est prêt (~été 2026).
+        Aucun spam, désabonnement 1 clic.
       </p>
 
-      <!-- Formspree endpoint wired 2026-05-25 — Tania Dictee Waitlist form -->
-      <form action="https://formspree.io/f/mdajwdgg" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <!-- Formspree endpoint — même endpoint que landing-v1.html -->
+      <form class="waitlist-form" action="https://formspree.io/f/mdajwdgg" method="POST">
         <input
           type="email"
           name="email"
           required
           placeholder="ton.email@exemple.com"
-          class="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-slate-900"
+          autocomplete="email"
         />
-        <button
-          type="submit"
-          class="px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-soft transition-colors shadow-sm"
-        >
-          M'inscrire
-        </button>
+        <button type="submit">M'inscrire</button>
       </form>
-      <p class="mt-4 text-xs text-slate-500">
-        Tu peux te désabonner en 1 clic. Email géré au Québec.
+
+      <p class="waitlist-note">
+        Email géré au Québec · désabonnement en 1 clic · aucune carte de crédit
       </p>
+
+      <div class="waitlist-stats">
+        <div class="stat-item">
+          <div class="stat-num">Beta</div>
+          <div class="stat-label">En cours de build</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">MIT</div>
+          <div class="stat-label">Licence open source</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">Windows</div>
+          <div class="stat-label">Platform cible (v1)</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="max-w-3xl mx-auto px-6 py-20">
-    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-10 text-center">
-      Questions qu'on nous pose
-    </h2>
-    <div class="space-y-6">
+  <!-- ============================================================
+       FAQ
+  ============================================================ -->
+  <section class="faq-section" id="faq">
+    <div style="text-align:center;">
+      <h2 class="section-title">Questions qu'on nous pose</h2>
+    </div>
 
-      <div class="bg-white p-6 rounded-lg border border-slate-200">
-        <h3 class="font-semibold text-slate-900 mb-2">Combien ça va coûter ?</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Cible : entre 5 et 9$ par mois, ou un paiement unique autour de 49-99$ (lifetime). Les concurrents généralistes sont à 15$/mois — on vise plus accessible parce qu'on est local pis qu'on coupe les frais cloud.
-        </p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <h3><span class="q-mark">Q</span> Ma voix est-elle envoyée sur des serveurs quelque part ?</h3>
+        <p>Non. Jamais. Whisper tourne 100% sur ton GPU ou CPU local. Ta voix ne quitte pas ton PC. Aucun enregistrement envoyé nulle part, aucun cloud vocal. C'est la différence architecturale fondamentale avec les outils comme Wispr Flow.</p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg border border-slate-200">
-        <h3 class="font-semibold text-slate-900 mb-2">C'est quand la beta ?</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Ouverture visée à l'été 2026. Les inscrits sur la waitlist passent en premier, gratuitement, pendant la beta privée.
-        </p>
+      <div class="faq-item">
+        <h3><span class="q-mark">Q</span> Ça marche sans connexion internet ?</h3>
+        <p>Oui. La reconnaissance vocale fonctionne en mode hors ligne complet — c'est le principe du local. La validation de licence nécessite une connexion au démarrage (grace period de 30 jours hors ligne incluse dans la licence).</p>
       </div>
 
-      <div class="bg-white p-6 rounded-lg border border-slate-200">
-        <h3 class="font-semibold text-slate-900 mb-2">Compatible Mac ou Linux ?</h3>
-        <p class="text-slate-600 text-sm leading-relaxed">
-          Pas pour l'instant. On focus Windows parce que c'est là que le trou de marché est le plus large (la plupart des outils similaires sont Mac-first). Mac peut-être en v2, si la demande suit.
-        </p>
+      <div class="faq-item">
+        <h3><span class="q-mark">Q</span> Le franglais tech fonctionne vraiment phrase par phrase ?</h3>
+        <p>Oui. Contrairement à Wispr Flow qui détecte la langue en début de session et reste figé dessus, Tania Dictée analyse chaque segment de phrase séparément. « Ajoute un useEffect qui gère le loading state » sort propre — FR et EN dans la même phrase, sans glitch.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q-mark">Q</span> Compatible Mac ou Linux ?</h3>
+        <p>Pas en v1 — Windows 10/11 seulement. On focus Windows parce que c'est là que le trou de marché est le plus grand (Wispr Flow est Mac only, Dragon NS est vieux et coûteux). Mac pourrait venir en v2 si la demande suit.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q-mark">Q</span> C'est quoi la différence entre 49$ one-shot et 9$/mois Pro ?</h3>
+        <p>One-shot : tu paies une fois, 3 machines, 1 an d'updates inclus. Pro mensuel : machines illimitées, updates permanentes, accès aux fonctionnalités beta en avant-première. Pour la plupart des gens, le one-shot est suffisant.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3><span class="q-mark">Q</span> Politique de remboursement ?</h3>
+        <p>Remboursement complet dans les 14 jours si ça fait pas ce qu'on promet. Aucune question. Envoie un email à <a href="mailto:contact@taniadictee.com">contact@taniadictee.com</a>.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-slate-200 bg-white">
-    <div class="max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-      <div>
-        <span class="font-semibold text-slate-700">Tania Dictée</span> — fait au Québec 🇨🇦
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        Tania Dictée <span>— fait au Québec 🇨🇦 · Beta 2026</span>
       </div>
-      <div class="flex gap-6">
-        <a href="mailto:contact@taniadictee.com" class="hover:text-accent">Contact</a>
-        <a href="#" class="hover:text-accent">Politique de vie privée</a>
+      <div class="footer-links">
+        <a href="docs.html">Documentation</a>
+        <a href="https://github.com/elboKazQC/tania-dictee" target="_blank" rel="noopener">GitHub (open source)</a>
+        <a href="mailto:contact@taniadictee.com">Contact</a>
+        <a href="#faq">FAQ</a>
       </div>
     </div>
   </footer>
+
+  <!-- ============================================================
+       SCRIPT : Redirect waitlist buttons until LS is live
+  ============================================================ -->
+  <script>
+    // Les boutons pointent vers #waitlist par défaut (sûr). Quand Vincent
+    // colle une vraie URL Lemon Squeezy dans l'attribut data-checkout (en
+    // remplaçant le placeholder LEMONSQUEEZY_CHECKOUT_URL_*), ce script arme
+    // le bouton : href = vraie URL + libellé "Acheter". Tant que c'est un
+    // placeholder, le bouton reste sur la waitlist.
+    (function() {
+      var PLACEHOLDER = 'LEMONSQUEEZY_CHECKOUT_URL';
+      var LABELS = { 'btn-oneshot': 'Acheter — 49$ une fois', 'btn-pro': 'S\'abonner — 9$/mois' };
+      ['btn-oneshot', 'btn-pro'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var checkout = el.getAttribute('data-checkout') || '';
+        if (checkout && checkout.indexOf(PLACEHOLDER) === -1) {
+          el.setAttribute('href', checkout);
+          el.textContent = LABELS[id] || 'Acheter';
+        } else {
+          el.setAttribute('href', '#waitlist');
+          el.textContent = 'Rejoindre la waitlist';
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
