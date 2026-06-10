@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation — Tania Dictée | Guide d'utilisation et FAQ</title>
+  <meta name="description" content="Guide complet Tania Dictée : installation, hotkey F6, franglais, glossaire, confidentialité, licences, dépannage. App de dictée locale Windows FR-QC." />
+  <style>
+    /* ============================================================
+       RESET & BASE — identique à index.html
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0a0e1a;
+      --bg-card:     #111827;
+      --bg-card2:    #1a2235;
+      --border:      rgba(255,255,255,0.08);
+      --border-glow: rgba(99,102,241,0.35);
+      --accent:      #6366f1;
+      --accent-soft: #818cf8;
+      --accent-glow: rgba(99,102,241,0.18);
+      --green:       #10b981;
+      --green-bg:    rgba(16,185,129,0.12);
+      --red:         #f43f5e;
+      --amber:       #f59e0b;
+      --amber-bg:    rgba(245,158,11,0.10);
+      --text-hi:     #f1f5f9;
+      --text-mid:    #94a3b8;
+      --text-lo:     #64748b;
+      --font:        'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono:   'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-hi);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-soft); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .max-w { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,14,26,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-hi);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-glow);
+      color: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--text-hi); text-decoration: none; }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent-soft); text-decoration: none; }
+
+    /* ============================================================
+       LAYOUT : sidebar + content
+    ============================================================ */
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .docs-layout { grid-template-columns: 1fr; }
+      .docs-sidebar { display: none; }
+    }
+
+    /* ============================================================
+       SIDEBAR
+    ============================================================ */
+    .docs-sidebar {
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-section {
+      margin-bottom: 28px;
+    }
+    .sidebar-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-lo);
+      margin-bottom: 10px;
+      padding-left: 12px;
+    }
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-nav a {
+      display: block;
+      padding: 6px 12px;
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      border-radius: 6px;
+      transition: background 0.12s, color 0.12s;
+      border-left: 2px solid transparent;
+    }
+    .sidebar-nav a:hover {
+      background: var(--bg-card);
+      color: var(--text-hi);
+      text-decoration: none;
+      border-left-color: var(--accent);
+    }
+
+    /* ============================================================
+       CONTENT
+    ============================================================ */
+    .docs-content {
+      min-width: 0;
+    }
+
+    /* Section anchor target — décalage pour le nav sticky */
+    .docs-section {
+      scroll-margin-top: 88px;
+      margin-bottom: 64px;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      background: var(--accent-glow);
+      border: 1px solid var(--border-glow);
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    .docs-section h2 {
+      font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-hi);
+      margin-bottom: 8px;
+    }
+
+    .docs-section > p,
+    .docs-section > .lead {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .docs-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-hi);
+      margin: 28px 0 10px;
+    }
+
+    .docs-section p {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    /* Cards content */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-glow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-soft);
+    }
+    .step-body h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-hi);
+      margin-bottom: 4px;
+    }
+    .step-body p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* Code block */
+    .code-block {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .code-block .green { color: var(--green); }
+    .code-block .accent { color: var(--accent-soft); }
+    .code-block .hi { color: var(--text-hi); }
+    .code-block .dim { color: var(--text-lo); }
+    .code-block .amber { color: var(--amber); }
+
+    /* Info / warning banners */
+    .banner {
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .banner-icon { flex-shrink: 0; font-size: 1.1rem; margin-top: 1px; }
+    .banner-info {
+      background: var(--accent-glow);
+      border: 1px solid var(--border-glow);
+      color: var(--text-mid);
+    }
+    .banner-green {
+      background: var(--green-bg);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: var(--text-mid);
+    }
+    .banner-amber {
+      background: var(--amber-bg);
+      border: 1px solid rgba(245,158,11,0.25);
+      color: var(--text-mid);
+    }
+    .banner strong { color: var(--text-hi); }
+
+    /* Comparison cards */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    @media (max-width: 560px) { .compare-grid { grid-template-columns: 1fr; } }
+    .compare-card {
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .compare-card-bad {
+      background: rgba(244,63,94,0.06);
+      border: 1px solid rgba(244,63,94,0.2);
+    }
+    .compare-card-good {
+      background: var(--green-bg);
+      border: 1px solid rgba(16,185,129,0.25);
+    }
+    .compare-card .card-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .compare-card-bad .card-label { color: var(--red); }
+    .compare-card-good .card-label { color: var(--green); }
+    .compare-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--text-hi); margin-bottom: 6px; }
+    .compare-card p { font-size: 0.84rem; color: var(--text-mid); line-height: 1.6; margin: 0; }
+
+    /* FAQ items */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+    .faq-item h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-hi);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .q-mark { color: var(--accent-soft); font-weight: 700; flex-shrink: 0; }
+    .faq-item p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    /* Pricing mini cards */
+    .pricing-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    @media (max-width: 480px) { .pricing-mini { grid-template-columns: 1fr; } }
+    .pricing-mini-card {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+    .pricing-mini-card.featured { border-color: var(--border-glow); }
+    .pricing-mini-card .plan { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-lo); margin-bottom: 6px; }
+    .pricing-mini-card .price { font-size: 1.6rem; font-weight: 800; color: var(--text-hi); letter-spacing: -0.02em; }
+    .pricing-mini-card .price-detail { font-size: 0.78rem; color: var(--text-mid); margin-bottom: 12px; }
+    .pricing-mini-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .pricing-mini-card li { font-size: 0.82rem; color: var(--text-mid); display: flex; gap: 6px; }
+    .pricing-mini-card li .chk { color: var(--green); flex-shrink: 0; }
+
+    /* Troubleshoot items */
+    .trouble-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    .trouble-item h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--amber);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .trouble-item p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    .trouble-item p:last-child { margin-bottom: 0; }
+
+    /* Divider */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 0 48px;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer-brand { font-weight: 700; color: var(--text-hi); font-size: 0.9rem; }
+    .footer-brand span { color: var(--text-lo); font-weight: 400; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-lo); }
+    .footer-links a:hover { color: var(--accent-soft); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" style="text-decoration:none;">
+        Tania Dictée
+        <span class="badge">BETA</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#pricing">Pricing</a>
+        <a href="docs.html" style="color:var(--text-hi);">Docs</a>
+        <a href="index.html#waitlist" class="nav-cta">Waitlist</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- LAYOUT -->
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Démarrage</div>
+        <ul class="sidebar-nav">
+          <li><a href="#installation">Installation</a></li>
+          <li><a href="#first-config">Première config</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Utilisation</div>
+        <ul class="sidebar-nav">
+          <li><a href="#hotkey">Hotkey F6</a></li>
+          <li><a href="#franglais">Dicter en franglais</a></li>
+          <li><a href="#glossaire">Glossaire perso</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Sécurité</div>
+        <ul class="sidebar-nav">
+          <li><a href="#confidentialite">Confidentialité</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Compte</div>
+        <ul class="sidebar-nav">
+          <li><a href="#licences">Licences &amp; activation</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Aide</div>
+        <ul class="sidebar-nav">
+          <li><a href="#depannage">Dépannage</a></li>
+          <li><a href="#contact">Contact support</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+
+      <!-- HERO DOCS -->
+      <div style="margin-bottom:48px;">
+        <div class="section-eyebrow">📖 Documentation</div>
+        <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-0.03em;color:var(--text-hi);margin-bottom:12px;">
+          Guide d'utilisation — Tania Dictée
+        </h1>
+        <p style="font-size:1rem;color:var(--text-mid);line-height:1.7;max-width:600px;">
+          Tout ce qu'il faut savoir pour dicter en franglais dans n'importe quelle app Windows,
+          100% local. F6 → parle → texte collé. C'est vraiment tout.
+        </p>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- ==================== INSTALLATION ==================== -->
+      <section id="installation" class="docs-section">
+        <div class="section-eyebrow">🚀 Étape 1</div>
+        <h2>Installation</h2>
+        <p class="lead">
+          Tania Dictée est en beta privée — l'installeur .exe 1-clic arrive à l'été 2026.
+          En attendant, la version open source s'installe en ~10 minutes.
+        </p>
+
+        <div class="banner banner-info">
+          <span class="banner-icon">ℹ️</span>
+          <div>
+            <strong>Beta fermée.</strong> Rejoins la <a href="index.html#waitlist">waitlist</a> pour
+            recevoir l'installeur 1-clic dès qu'il est prêt — aucune manipulation Python requise.
+          </div>
+        </div>
+
+        <h3>Prérequis système</h3>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Windows 10 ou 11 (64-bit)</h4>
+              <p>Tania Dictée est buildée Windows-first. Mac et Linux ne sont pas supportés en v1.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Python 3.10+ installé</h4>
+              <p>
+                Télécharge Python sur <a href="https://python.org" target="_blank" rel="noopener">python.org</a>.
+                Coche "Add Python to PATH" pendant l'installation.
+                Pas nécessaire avec l'installeur .exe (beta fermée).
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>GPU recommandé (mais pas obligatoire)</h4>
+              <p>
+                Avec une carte NVIDIA, la transcription est quasi instantanée (&lt;1s).
+                Sans GPU, ça tourne quand même sur le CPU — juste 2-3× plus lent (~3s de délai).
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Micro fonctionnel</h4>
+              <p>N'importe quel micro — casque, micro externe, micro intégré. Testa-le dans les paramètres son Windows avant de continuer.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Installation depuis GitHub (version open source)</h3>
+        <div class="code-block">
+          <span class="dim"># 1. Clone le repo</span><br/>
+          git clone https://github.com/elboKazQC/tania-dictee.git<br/>
+          cd tania-dictee<br/><br/>
+          <span class="dim"># 2. Crée l'environnement virtuel</span><br/>
+          python -m venv .venv<br/>
+          .venv\Scripts\activate<br/><br/>
+          <span class="dim"># 3. Installe les dépendances</span><br/>
+          pip install -r requirements.txt<br/><br/>
+          <span class="dim"># 4. Lance l'app</span><br/>
+          python app.py
+        </div>
+
+        <div class="banner banner-amber">
+          <span class="banner-icon">⚠️</span>
+          <div>
+            <strong>Premier lancement lent.</strong> Whisper télécharge le modèle vocal la première fois (~1.5 GB).
+            Après ça, tout est local — aucun téléchargement requis.
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PREMIÈRE CONFIG ==================== -->
+      <section id="first-config" class="docs-section">
+        <div class="section-eyebrow">⚙️ Étape 2</div>
+        <h2>Première configuration</h2>
+        <p>Deux minutes pour paramétrer, et c'est réglé.</p>
+
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Choisir ton micro</h4>
+              <p>Au premier lancement, une liste de micros s'affiche dans la console. Entre le numéro correspondant à ton micro et confirme.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Tester le hotkey F6</h4>
+              <p>
+                Ouvre n'importe quelle app texte (Bloc-notes, VS Code, Gmail dans Chrome).
+                Clique dans la zone de texte pour placer ton curseur.
+                Pèse F6, dis « test de micro », relâche F6. Le texte devrait coller là où ton curseur était.
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Ajouter tes premiers mots au glossaire (optionnel)</h4>
+              <p>
+                Ouvre le fichier <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">glossary.txt</code>
+                à la racine du projet. Ajoute un mot par ligne. Exemple : <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">useEffect</code>, <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">useState</code>, <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">NextJS</code>.
+                Aucun redémarrage requis.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== HOTKEY ==================== -->
+      <section id="hotkey" class="docs-section">
+        <div class="section-eyebrow">⌨️ Utilisation</div>
+        <h2>Le hotkey F6</h2>
+        <p>
+          F6 est le cœur de Tania Dictée. Tout le flow tient en un geste :
+        </p>
+
+        <div class="code-block">
+          <span class="accent">F6 appuyé</span> → <span class="green">🎙 micro actif</span> → <span class="hi">tu parles</span><br/>
+          <span class="accent">F6 relâché</span> → <span class="green">⚡ transcription (&lt;1s avec GPU)</span> → <span class="hi">texte collé dans l'app active</span>
+        </div>
+
+        <h3>Comment ça marche exactement</h3>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">🎯</div>
+            <div class="step-body">
+              <h4>Curseur = destination du texte</h4>
+              <p>Le texte se colle exactement où ton curseur est positionné dans la fenêtre active. Clique d'abord dans la zone de texte que tu veux remplir, ensuite F6.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">⏱</div>
+            <div class="step-body">
+              <h4>Maintiens F6 pendant toute la dictée</h4>
+              <p>F6 maintenu = micro ouvert. F6 relâché = enregistrement terminé, transcription démarre. Tu peux dicter 30 secondes d'un coup ou juste 3 mots — ça marche pareil.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">🔁</div>
+            <div class="step-body">
+              <h4>Répète autant que tu veux</h4>
+              <p>F6 → phrase → colle. F6 → phrase → colle. Pas de limite. Chaque F6 est indépendant — tu peux dicter par petites rafales.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="banner banner-green">
+          <span class="banner-icon">✅</span>
+          <div>
+            <strong>Colle partout.</strong> Claude Code, VS Code, PyCharm, Gmail dans Chrome, Slack, Outlook, Word, Bloc-notes, Teams — n'importe quelle fenêtre Windows avec une zone de texte.
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== FRANGLAIS ==================== -->
+      <section id="franglais" class="docs-section">
+        <div class="section-eyebrow">🍁 Franglais</div>
+        <h2>Dicter en franglais</h2>
+        <p>
+          C'est l'avantage clé sur tous les concurrents. Tu n'as pas à choisir entre français et anglais
+          avant de parler — Tania Dictée détecte la langue segment par segment dans la même phrase.
+        </p>
+
+        <div class="compare-grid">
+          <div class="compare-card compare-card-bad">
+            <div class="card-label">❌ Les autres (Wispr, Dragon)</div>
+            <h4>Langue = session entière</h4>
+            <p>Tu démarres en français, tout reste en français. "useEffect" sort "utilisez Effet". Tu passes 30s à corriger après chaque phrase.</p>
+          </div>
+          <div class="compare-card compare-card-good">
+            <div class="card-label">✅ Tania Dictée</div>
+            <h4>Langue = segment par segment</h4>
+            <p>FR et EN dans la même phrase, sans switcher de mode. "Ajoute un useEffect qui gère le loading" sort propre en un seul F6.</p>
+          </div>
+        </div>
+
+        <h3>Exemples réels</h3>
+        <div class="code-block">
+          <span class="dim">Ce que tu dis (franglais naturel) :</span><br/>
+          <span class="hi">"Crée un composant Button avec un prop onClick qui dispatch un event vers le parent"</span><br/><br/>
+          <span class="dim">Ce qui sort :</span><br/>
+          <span class="green">Crée un composant Button avec un prop onClick qui dispatch un event vers le parent</span><br/><br/>
+          <span class="dim">——</span><br/><br/>
+          <span class="hi">"Ajoute un useEffect qui fetch les données du endpoint slash users"</span><br/>
+          <span class="green">Ajoute un useEffect qui fetch les données du endpoint /users</span><br/><br/>
+          <span class="hi">"Le state loading passe à false quand le fetch est done"</span><br/>
+          <span class="green">Le state loading passe à false quand le fetch est done</span>
+        </div>
+
+        <h3>Conseils pour de meilleurs résultats</h3>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">💡</div>
+            <div class="step-body">
+              <h4>Parle naturellement, sans ralentir</h4>
+              <p>Whisper performe mieux avec un débit naturel. Pas besoin de détacher chaque syllabe ou de parler "fort". Ton rythme habituel, c'est parfait.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">💡</div>
+            <div class="step-body">
+              <h4>Noms de fonctions : dis-les comme tu les lis</h4>
+              <p>"use effect" (deux mots) → sort "useEffect" grâce au glossaire. "get user by id" → sort "getUserById". Pas besoin d'épeler.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">💡</div>
+            <div class="step-body">
+              <h4>Ponctuation : dicte-la si nécessaire</h4>
+              <p>Dis "point" → ".", "virgule" → ",", "ouvrir parenthèse" → "(". Pour les blocs de code, mieux vaut pas dicter la syntaxe — dicte l'intention en prose et laisse Copilot finir.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== GLOSSAIRE ==================== -->
+      <section id="glossaire" class="docs-section">
+        <div class="section-eyebrow">📖 Glossaire</div>
+        <h2>Glossaire perso — tes mots toujours bien écrits</h2>
+        <p>
+          Whisper est entraîné sur l'anglais et le français génériques. Des mots tech FR-QC spécifiques
+          ou tes noms de projets peuvent mal sortir. Le glossaire corrige ça.
+        </p>
+
+        <h3>Comment ajouter un mot</h3>
+        <p>Ouvre le fichier <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">glossary.txt</code> à la racine du projet. Un mot ou expression par ligne :</p>
+        <div class="code-block">
+          <span class="dim"># glossary.txt — exemples</span><br/>
+          useEffect<br/>
+          useState<br/>
+          NextJS<br/>
+          Tania Dictée<br/>
+          Noovelia<br/>
+          OpenClaw<br/>
+          TailwindCSS<br/>
+          shadcn<br/>
+          trpc<br/>
+          Zustand<br/>
+          pinia<br/>
+          FastAPI
+        </div>
+
+        <div class="banner banner-info">
+          <span class="banner-icon">ℹ️</span>
+          <div>
+            <strong>Aucun redémarrage requis.</strong> Le glossaire est relu automatiquement au prochain F6.
+            Ajoute un mot, dicte — c'est actif immédiatement.
+          </div>
+        </div>
+
+        <h3>Comment ça marche en coulisses</h3>
+        <p>
+          Whisper reçoit les mots du glossaire comme "tokens préférés" au moment de la transcription.
+          Si tu dis "NextJS" et que c'est dans ton glossaire, Whisper va favoriser cette orthographe
+          exacte plutôt que "Next J.S." ou "Next géé esse".
+        </p>
+
+        <h3>Quand utiliser le glossaire</h3>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">✓</div>
+            <div class="step-body">
+              <h4>Noms propres tech</h4>
+              <p>Libs, frameworks, noms de projets, noms de variables récurrentes — tout ce que tu uses souvent et que Whisper écorche.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">✓</div>
+            <div class="step-body">
+              <h4>Acronymes et jargon métier</h4>
+              <p>APIs, termes de ton domaine, abréviations internes. Si tu travailles en santé, en finance, en droit — ajoute ton vocab spécialisé.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">✗</div>
+            <div class="step-body">
+              <h4>Mots courants bien reconnus</h4>
+              <p>Pas besoin d'ajouter "bonjour", "useState" s'il sort déjà bien, ou les mots français du dictionnaire standard. Le glossaire c'est pour les exceptions, pas le vocabulaire de base.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CONFIDENTIALITÉ ==================== -->
+      <section id="confidentialite" class="docs-section">
+        <div class="section-eyebrow">🔒 Sécurité</div>
+        <h2>Confidentialité — ta voix reste chez toi</h2>
+        <p>
+          C'est l'argument central de Tania Dictée : <strong style="color:var(--text-hi);">100% local</strong>.
+          Pas de serveurs, pas de logs, pas de compte cloud requis pour la transcription.
+        </p>
+
+        <div class="banner banner-green">
+          <span class="banner-icon">🔒</span>
+          <div>
+            <strong>Ta voix ne quitte jamais ton PC.</strong> Whisper tourne entièrement sur ton GPU/CPU.
+            Aucun enregistrement audio n'est envoyé à Anthropic, OpenAI, ou qui que ce soit.
+          </div>
+        </div>
+
+        <div class="compare-grid">
+          <div class="compare-card compare-card-bad">
+            <div class="card-label">❌ Wispr Flow / Dragon cloud</div>
+            <h4>Ton audio file sur leurs serveurs</h4>
+            <p>Ta voix transite par leurs API. Tes mots de passe dictés, tes prompts sensibles, ton code propriétaire — tout ça passe par leur infra.</p>
+          </div>
+          <div class="compare-card compare-card-good">
+            <div class="card-label">✅ Tania Dictée</div>
+            <h4>Zéro transit réseau pour la voix</h4>
+            <p>L'audio est capturé en RAM, traité par Whisper local, transcrit en texte — tout reste en mémoire sur ton PC. Aucune donnée envoyée.</p>
+          </div>
+        </div>
+
+        <h3>Ce qui se passe techniquement</h3>
+        <div class="code-block">
+          <span class="accent">Micro</span> → <span class="green">RAM (audio brut)</span> → <span class="accent">Whisper local</span> → <span class="green">texte</span> → <span class="accent">Presse-papier</span> → <span class="green">colled dans ton app</span><br/><br/>
+          <span class="dim">Rien ne sort de ce circuit. Pas de logging fichier, pas d'appel réseau.</span>
+        </div>
+
+        <h3>Exceptions (licences et updates)</h3>
+        <p>
+          La validation de licence et les mises à jour nécessitent une connexion internet.
+          Mais ça ne concerne jamais l'audio — c'est juste un handshake de licence (clé chiffrée).
+          La transcription fonctionne hors ligne complet.
+        </p>
+
+        <h3>Pourquoi c'est important pour ton code</h3>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">🔐</div>
+            <div class="step-body">
+              <h4>Code propriétaire et secret de client</h4>
+              <p>Si tu travailles sur des projets clients ou du code propriétaire, tu peux dicter librement — ta logique business ne passe pas par des serveurs tiers.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">🔑</div>
+            <div class="step-body">
+              <h4>Mots de passe et tokens (à éviter quand même)</h4>
+              <p>Techniquement, l'audio reste local. Mais ne dicte jamais tes mots de passe — pas parce que Tania les envoie quelque part, mais parce que le texte collé dans une mauvaise fenêtre = risque d'exposition accidentelle.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== LICENCES ==================== -->
+      <section id="licences" class="docs-section">
+        <div class="section-eyebrow">🏷️ Licences</div>
+        <h2>Licences et activation</h2>
+        <p>Deux plans disponibles. Simples, honnêtes, pas de surprise.</p>
+
+        <div class="pricing-mini">
+          <div class="pricing-mini-card">
+            <div class="plan">One-shot · 1 an</div>
+            <div class="price">49$</div>
+            <div class="price-detail">CAD, une fois · 3 machines</div>
+            <ul>
+              <li><span class="chk">✓</span> Toutes les fonctionnalités</li>
+              <li><span class="chk">✓</span> 3 machines max</li>
+              <li><span class="chk">✓</span> 1 an d'updates inclus</li>
+              <li><span class="chk">✓</span> Hors ligne après activation</li>
+            </ul>
+          </div>
+          <div class="pricing-mini-card featured">
+            <div class="plan">Pro · Mensuel ⭐</div>
+            <div class="price">9$</div>
+            <div class="price-detail">CAD / mois · machines illimitées</div>
+            <ul>
+              <li><span class="chk">✓</span> Tout ce qu'il y a dans One-shot</li>
+              <li><span class="chk">✓</span> Machines illimitées</li>
+              <li><span class="chk">✓</span> Updates permanentes</li>
+              <li><span class="chk">✓</span> Accès beta avant les autres</li>
+              <li><span class="chk">✓</span> Support prioritaire</li>
+              <li><span class="chk">✓</span> Annule n'importe quand</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="faq-list" style="margin-top:24px;">
+          <div class="faq-item">
+            <h3><span class="q-mark">Q</span> Comment activer ma licence ?</h3>
+            <p>
+              Après achat via Lemon Squeezy, tu reçois un email avec ta clé de licence.
+              Au premier lancement, Tania Dictée te demande cette clé.
+              Entre-la une fois — elle est sauvegardée, tu n'auras plus jamais à la rentrer.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3><span class="q-mark">Q</span> Est-ce que ça marche hors ligne ?</h3>
+            <p>
+              La transcription est 100% hors ligne. La validation de licence se fait au premier lancement
+              et une fois toutes les 30 jours. Si t'as pas de connexion pendant 30 jours — une grace period
+              s'applique et ça continue de fonctionner.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3><span class="q-mark">Q</span> Je change de PC — comment transférer ma licence ?</h3>
+            <p>
+              Email à <a href="mailto:casaubonvincent@gmail.com">casaubonvincent@gmail.com</a> avec ta clé et
+              le nom de la machine à libérer. On réactive en 24h. (Plan One-shot : 3 machines max.
+              Pro : illimité, pas besoin de nous contacter.)
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3><span class="q-mark">Q</span> Politique de remboursement ?</h3>
+            <p>
+              14 jours, remboursement complet si ça fait pas ce qu'on promet. Aucune question.
+              Email à <a href="mailto:casaubonvincent@gmail.com">casaubonvincent@gmail.com</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DÉPANNAGE ==================== -->
+      <section id="depannage" class="docs-section">
+        <div class="section-eyebrow">🔧 Dépannage</div>
+        <h2>Dépannage</h2>
+        <p>Les problèmes les plus fréquents et comment les régler en 2 minutes.</p>
+
+        <div class="trouble-item">
+          <h3>🎙 Le micro n'est pas détecté / aucun son enregistré</h3>
+          <p><strong style="color:var(--text-hi);">Vérifie d'abord :</strong> Paramètres Windows → Son → Onglet Enregistrement → ton micro est bien là et pas "Désactivé".</p>
+          <p><strong style="color:var(--text-hi);">Ensuite :</strong> Quand tu lances <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">python app.py</code>, une liste de micros disponibles s'affiche. Entre le bon numéro.</p>
+          <p><strong style="color:var(--text-hi);">Toujours rien :</strong> Va dans Paramètres → Confidentialité → Microphone → active l'accès pour les applications de bureau. Windows bloque parfois les apps Python par défaut.</p>
+        </div>
+
+        <div class="trouble-item">
+          <h3>🐢 La transcription est trop lente (plus de 5 secondes)</h3>
+          <p><strong style="color:var(--text-hi);">Sans GPU NVIDIA :</strong> Normal — CPU seul prend 3-6s. Pour aller plus vite, tu peux utiliser un modèle plus petit. Édite <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">app.py</code> et change <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">MODEL_SIZE = "large-v3"</code> pour <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">"medium"</code> ou <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">"small"</code>. Qualité un peu moindre, mais 2× plus rapide.</p>
+          <p><strong style="color:var(--text-hi);">Avec GPU mais quand même lent :</strong> Vérifie que CUDA est bien installé. Lance <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">python test_cuda.py</code> (inclus dans le repo) — il confirme si Whisper utilise bien ton GPU.</p>
+        </div>
+
+        <div class="trouble-item">
+          <h3>❌ Le texte ne se colle pas dans l'app</h3>
+          <p><strong style="color:var(--text-hi);">Vérifie que ton curseur est bien dans une zone de texte</strong> avant d'appuyer sur F6. Si ton curseur est dans la barre d'adresse du navigateur ou une zone non-texte, le coller ne va nulle part.</p>
+          <p><strong style="color:var(--text-hi);">Certaines apps corporate bloquent le coller automatique</strong> (ex. : Teams en entreprise avec DLP activé, certains VPNs). Dans ce cas, le texte est dans ton presse-papier — Ctrl+V manuel fonctionne.</p>
+        </div>
+
+        <div class="trouble-item">
+          <h3>🔤 Mes mots techniques sortent mal</h3>
+          <p><strong style="color:var(--text-hi);">Solution immédiate :</strong> Ajoute le mot dans <code style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-soft);">glossary.txt</code>, un par ligne. Actif au prochain F6.</p>
+          <p><strong style="color:var(--text-hi);">Exemples courants qui trippent Whisper :</strong> "useEffect" → "utilisez Effet", "useState" → "use état", "GitHub" → "get hub". Tous corrigibles via le glossaire.</p>
+          <p><strong style="color:var(--text-hi);">Pour les acronymes :</strong> Dis-les comme des mots, pas épelés. "A-P-I" (épelé) → Whisper hésite. "api" (prononcé comme un mot) → sort "API" propre.</p>
+        </div>
+
+        <div class="trouble-item">
+          <h3>🔑 Ma clé de licence ne fonctionne pas</h3>
+          <p><strong style="color:var(--text-hi);">Vérifie :</strong> Pas d'espace en début ou fin de clé quand tu la copies. La clé est sensible à la casse.</p>
+          <p><strong style="color:var(--text-hi);">Toujours bloqué :</strong> Email à <a href="mailto:casaubonvincent@gmail.com">casaubonvincent@gmail.com</a> avec ta clé et ta commande Lemon Squeezy — on règle ça en 24h.</p>
+        </div>
+      </section>
+
+      <!-- ==================== CONTACT ==================== -->
+      <section id="contact" class="docs-section">
+        <div class="section-eyebrow">📬 Support</div>
+        <h2>Contact support</h2>
+        <p>
+          T'as un problème pas couvert ici ? Une idée d'amélioration ? Un bug à reporter ?
+          Envoie un email — on répond en 24-48h.
+        </p>
+
+        <div class="banner banner-info" style="margin-bottom:20px;">
+          <span class="banner-icon">✉️</span>
+          <div>
+            <strong>Email support :</strong>
+            <a href="mailto:casaubonvincent@gmail.com">casaubonvincent@gmail.com</a><br/>
+            <span style="font-size:0.82rem;">Pour les bugs : inclus ton OS (Win 10/11), ton GPU si t'en as un, et ce que tu voyais dans la console au moment du problème.</span>
+          </div>
+        </div>
+
+        <div class="banner banner-green">
+          <span class="banner-icon">🔓</span>
+          <div>
+            <strong>Version open source :</strong> Tu peux aussi ouvrir une issue sur
+            <a href="https://github.com/elboKazQC/tania-dictee" target="_blank" rel="noopener">GitHub</a>
+            — la communauté peut aider, et les bugs remontés là sont traités en priorité.
+          </div>
+        </div>
+
+        <h3>Rejoindre la waitlist</h3>
+        <p>
+          Pas encore client et tu veux être avisé quand l'installeur 1-clic sort ?
+        </p>
+        <a href="index.html#waitlist"
+           style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--accent);color:#fff;font-weight:700;font-size:0.9rem;border-radius:10px;text-decoration:none;box-shadow:0 0 20px rgba(99,102,241,0.3);margin-top:8px;">
+          ✉ Rejoindre la waitlist
+        </a>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        Tania Dictée <span>— fait au Québec 🇨🇦 · Beta 2026</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="docs.html">Documentation</a>
+        <a href="https://github.com/elboKazQC/tania-dictee" target="_blank" rel="noopener">GitHub (open source)</a>
+        <a href="mailto:casaubonvincent@gmail.com">Contact</a>
+        <a href="index.html#pricing">Pricing</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
