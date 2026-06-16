@@ -147,11 +147,15 @@ python app.py --model tiny
 
 ---
 
-## Version packagée / .exe à venir
+## Version packagée (.exe)
 
-Tu veux un installeur .exe clé en main, pas de Python, auto-update ? Inscris-toi à la waitlist :
+Tu veux pas toucher à Python ? L'app packagée est dispo : installeur 1-clic, aucun setup, tu lances et tu parles.
 
-👉 **[elbokazqc.github.io/tania-dictee](https://elbokazqc.github.io/tania-dictee)**
+👉 **App early access, 9 $ CAD une fois : [casaubon5.gumroad.com/l/symfz](https://casaubon5.gumroad.com/l/symfz)**
+
+C'est de l'alpha assumée (Windows, pas signée, une console reste ouverte). Le code ci-dessus reste gratuit et MIT si tu préfères le faire tourner toi-même.
+
+Tu veux plutôt l'installeur signé avec auto-update (à venir) ? Laisse ton courriel sur la [waitlist](https://elbokazqc.github.io/tania-dictee).
 
 ---
 
